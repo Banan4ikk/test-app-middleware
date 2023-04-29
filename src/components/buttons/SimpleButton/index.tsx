@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ButtonStyled, ButtonText } from './styles';
-import { ViewStyle } from 'react-native';
+import { ButtonProps, TouchableHighlightProps, ViewStyle } from 'react-native';
 
 type Props = {
   color?: string;
@@ -9,9 +9,9 @@ type Props = {
   style?: ViewStyle;
 };
 
-const SimpleButton: FC<Props> = ({ color, title, onPress, style }) => {
+const SimpleButton: FC<Props & TouchableHighlightProps> = ({ color, title, onPress, style, ...props }) => {
   return (
-    <ButtonStyled style={style} underlayColor={'#3472ef'} color={color} onPress={onPress}>
+    <ButtonStyled style={style} underlayColor="#3472ef" color={color} onPress={onPress} {...props}>
       <ButtonText>{title}</ButtonText>
     </ButtonStyled>
   );

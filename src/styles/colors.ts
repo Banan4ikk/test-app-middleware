@@ -1,4 +1,5 @@
 export const mainBackgroundColor = '#1e63ee';
+export const lightBackgroundColor = '#6d99f3';
 export const mainColor = '#fff';
 export const frenchGray = '#CACACC';
 export const redError = '#FA4D23';

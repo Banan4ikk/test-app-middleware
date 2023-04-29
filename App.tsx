@@ -1,8 +1,10 @@
 import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Profiler, useCallback, useEffect, useState } from 'react';
 import { useAppFonts } from './src/hooks/useAppFonts';
 import AppNavigation from './src/navigation/Navigation';
+import { Provider } from 'react-redux';
+import { store } from './src/redux/store';
 
 const styles = StyleSheet.create({
   root: {
@@ -39,7 +41,11 @@ const Root = () => {
 };
 
 const App = () => {
-  return <Root />;
+  return (
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  );
 };
 
 export default App;

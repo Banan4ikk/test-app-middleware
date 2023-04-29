@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { mainBackgroundColor, mainColor } from '../../../styles/colors';
+import { lightBackgroundColor, mainBackgroundColor, mainColor } from '../../../styles/colors';
 
 type Props = {
   color?: string;
@@ -11,7 +11,7 @@ export const ButtonStyled = styled.TouchableHighlight<Props>`
   border-radius: 12px;
   justify-content: center;
   align-items: center;
-  background-color: ${mainBackgroundColor};
+  background-color: ${({ disabled }) => (disabled ? lightBackgroundColor : mainBackgroundColor)};
 `;
 
 export const ButtonText = styled.Text`

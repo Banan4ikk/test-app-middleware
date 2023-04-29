@@ -5,6 +5,7 @@ import { ErrorContainer, ErrorText } from './TextInputForEdit/styles';
 import { alabasterWhite, frenchGray, greenSuccess, mainBackgroundColor, mainColor, redError } from '../styles/colors';
 import CheckMarkIcon from '../../svg/CkeckMarkIcon';
 import MaskInput, { MaskInputProps } from 'react-native-mask-input';
+import { useFocusHandler } from '../hooks/useFocusHandler';
 
 export type StatusType = 'primary' | 'danger' | 'success';
 
@@ -33,40 +34,7 @@ const PhoneInput: FC<MaskInputProps & { status: StatusType }> = ({
   mask,
   ...other
 }) => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const onFocusHandler: TextInputProps['onFocus'] = useCallback(
-    (e: any) => {
-      setIsFocused(true);
-      if (isFunction(onFocus)) {
-        onFocus(e);
-      }
-    },
-    [onFocus],
-  );
-
-  const onBlurHandler: TextInputProps['onBlur'] = useCallback(
-    (e: any) => {
-      setIsFocused(false);
-      if (isFunction(onBlur)) {
-        onBlur(e);
-      }
-    },
-    [onBlur],
-  );
-
-  const selectBorderColor = () => {
-    if (isFocused) {
-      return mainBackgroundColor;
-    }
-    if (status === 'danger') {
-      return redError;
-    }
-    if (status === 'success') {
-      return greenSuccess;
-    }
-    return frenchGray;
-  };
+  const { isFocused, selectBorderColor, onFocusHandler, onBlurHandler } = useFocusHandler({ onFocus, onBlur });
 
   return (
     <ErrorContainer>
@@ -74,7 +42,7 @@ const PhoneInput: FC<MaskInputProps & { status: StatusType }> = ({
         style={[
           styles.inputStyles,
           {
-            borderColor: selectBorderColor(),
+            borderColor: selectBorderColor(status),
             backgroundColor: !isFocused && status === 'primary' ? alabasterWhite : mainColor,
           },
         ]}

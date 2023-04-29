@@ -4,11 +4,8 @@ import { StyleSheet, TextInputProps } from 'react-native';
 import { ErrorContainer, ErrorText } from './TextInputForEdit/styles';
 import { alabasterWhite, frenchGray, greenSuccess, mainBackgroundColor, mainColor, redError } from '../styles/colors';
 import CheckMarkIcon from '../../svg/CkeckMarkIcon';
-import MaskInput, { MaskInputProps } from 'react-native-mask-input';
 import RNPickerSelect, { PickerSelectProps } from 'react-native-picker-select';
 import ArrowDown from '../../svg/ArrowDown';
-
-export type StatusType = 'primary' | 'danger' | 'success';
 
 const styles = StyleSheet.create({
   iconStyles: {

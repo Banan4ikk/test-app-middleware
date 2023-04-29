@@ -1,18 +1,16 @@
-import { isFunction } from 'lodash';
-import React, { FC, useCallback, useState } from 'react';
-import { StyleSheet, Text, TextInput, TextInputProps } from 'react-native';
+import React, { forwardRef, useRef } from 'react';
+import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 import { ErrorContainer, ErrorText, StyledTextInput } from './styles';
-import {
-  alabasterWhite,
-  frenchGray,
-  greenSuccess,
-  mainBackgroundColor,
-  mainColor,
-  redError,
-} from '../../styles/colors';
+import { alabasterWhite, mainColor } from '../../styles/colors';
 import CheckMarkIcon from '../../../svg/CkeckMarkIcon';
+import { useFocusHandler } from '../../hooks/useFocusHandler';
+import mergeRefs from 'react-merge-refs';
 
 export type StatusType = 'primary' | 'danger' | 'success';
+
+type Props = TextInputProps & {
+  status: StatusType;
+};
 
 const styles = StyleSheet.create({
   iconStyles: {
@@ -22,60 +20,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextInputForEdit: FC<TextInputProps & { status: StatusType }> = ({
-  onBlur,
-  onFocus,
-  status = 'primary',
-  ...other
-}) => {
-  const [isFocused, setIsFocused] = useState(false);
+const TextInputForEdit = forwardRef<TextInput, Props>(
+  ({ onBlur, onFocus, status = 'primary', ...other }, forwardRef) => {
+    const { isFocused, selectBorderColor, onFocusHandler, onBlurHandler } = useFocusHandler({ onFocus, onBlur });
 
-  const onFocusHandler: TextInputProps['onFocus'] = useCallback(
-    (e: any) => {
-      setIsFocused(true);
-      if (isFunction(onFocus)) {
-        onFocus(e);
-      }
-    },
-    [onFocus],
-  );
+    const localRef = useRef<TextInput>(null);
 
-  const onBlurHandler: TextInputProps['onBlur'] = useCallback(
-    (e: any) => {
-      setIsFocused(false);
-      if (isFunction(onBlur)) {
-        onBlur(e);
-      }
-    },
-    [onBlur],
-  );
-
-  const selectBorderColor = () => {
-    if (isFocused) {
-      return mainBackgroundColor;
-    }
-    if (status === 'danger') {
-      return redError;
-    }
-    if (status === 'success') {
-      return greenSuccess;
-    }
-    return frenchGray;
-  };
-
-  return (
-    <ErrorContainer>
-      <StyledTextInput
-        borderColor={selectBorderColor()}
-        bgColor={!isFocused && status === 'primary' ? alabasterWhite : mainColor}
-        onFocus={onFocusHandler}
-        onBlur={onBlurHandler}
-        {...other}
-      />
-      {status === 'danger' && !isFocused && <ErrorText>Заполните поле</ErrorText>}
-      {status === 'success' && !isFocused && <CheckMarkIcon style={styles.iconStyles} />}
-    </ErrorContainer>
-  );
-};
+    return (
+      <ErrorContainer>
+        <StyledTextInput
+          borderColor={selectBorderColor(status)}
+          bgColor={!isFocused && status === 'primary' ? alabasterWhite : mainColor}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+          ref={mergeRefs([localRef, forwardRef])}
+          {...other}
+        />
+        {status === 'danger' && !isFocused && <ErrorText>Заполните поле</ErrorText>}
+        {status === 'success' && !isFocused && <CheckMarkIcon style={styles.iconStyles} />}
+      </ErrorContainer>
+    );
+  },
+);
 
 export default TextInputForEdit;
