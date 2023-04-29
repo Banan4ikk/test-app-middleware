@@ -1,0 +1,70 @@
+Arguments: 
+  /opt/homebrew/Cellar/node/19.2.0/bin/node /usr/local/bin/yarn add @react-navigation
+
+PATH: 
+  /Users/Konstantin/.rbenv/bin:/Users/Konstantin/.rbenv/shims:/opt/homebrew/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/Konstantin/Desktop/test-app/node_modules/.bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  19.2.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@react-navigation: Request "https://registry.yarnpkg.com/@react-navigation" returned a 405
+      at params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66154:18)
+      at self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+
+npm manifest: 
+  {
+    "name": "test-app",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    },
+    "dependencies": {
+      "@typescript-eslint/eslint-plugin": "^5.54.1",
+      "eslint-plugin-flowtype": "^8.0.3",
+      "eslint-plugin-react": "^7.32.2",
+      "eslint-plugin-react-native": "^4.0.0",
+      "expo": "~48.0.5",
+      "expo-font": "^11.1.1",
+      "expo-splash-screen": "^0.18.1",
+      "expo-status-bar": "~1.4.4",
+      "react": "18.2.0",
+      "react-native": "0.71.3",
+      "react-native-safe-area-context": "^4.5.0"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.20.0",
+      "@react-native-community/eslint-config": "^2.0.0",
+      "@types/react": "~18.0.14",
+      "@typescript-eslint/parser": "^5.17.0",
+      "babel-plugin-module-resolver": "^5.0.0",
+      "eslint": "^8.35.0",
+      "typescript": "^4.9.4"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
