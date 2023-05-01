@@ -6,14 +6,6 @@ export class Http {
     this.useInterceptors();
   }
 
-  setAuthorizationHeader(token: string): void {
-    localStorage.setItem('token', token);
-  }
-
-  unsetAuthorizationHeader(): void {
-    delete this._axios.defaults.headers.common.Authorization;
-  }
-
   private useInterceptors(): void {
     this._axios.interceptors.response.use(undefined, (error: AxiosError): Promise<AxiosError> => {
       if (error.response?.status === 401) {

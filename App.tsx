@@ -4,7 +4,8 @@ import React, { Profiler, useCallback, useEffect, useState } from 'react';
 import { useAppFonts } from './src/hooks/useAppFonts';
 import AppNavigation from './src/navigation/Navigation';
 import { Provider } from 'react-redux';
-import { store } from './src/redux/store';
+import { persistor, store } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const styles = StyleSheet.create({
   root: {
@@ -43,7 +44,9 @@ const Root = () => {
 const App = () => {
   return (
     <Provider store={store}>
-      <Root />
+      <PersistGate persistor={persistor}>
+        <Root />
+      </PersistGate>
     </Provider>
   );
 };

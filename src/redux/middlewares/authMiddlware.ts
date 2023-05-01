@@ -1,26 +1,16 @@
 import { AnyAction, Dispatch } from 'redux';
-
-import { http } from '../../services/http';
+import errorSlice from '../errorSlice/errorSlice';
 
 export const authMiddleware =
   () =>
-  (next: Dispatch) =>
+  (dispatch: Dispatch) =>
   (action: AnyAction): AnyAction => {
-    // if (action.payload?.accessToken) {
-    //   // http.setAuthorizationHeader(action.payload.accessToken);
-    // }
-
+    dispatch(errorSlice.actions.clearError());
     if (action.type.includes('fulfilled')) {
-      if (action.payload.code === 1000) {
-        Promise.reject('not authed').then(res => {
-          console.log('err', res);
-        });
-      } else if (action.payload.code === 1011) {
-        Promise.reject('user locked').then(res => {
-          console.log('err', res);
-        });
+      if (!action.payload.ok) {
+        return dispatch(errorSlice.actions.setError({ message: action.payload.msg, code: action.payload.code }));
       }
     }
 
-    return next(action);
+    return dispatch(action);
   };

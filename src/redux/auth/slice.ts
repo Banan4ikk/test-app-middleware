@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ConfirmPhoneType, LoginThunkType, ResponseUserLogin, UserRegistrationInfo } from './types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { ConfirmPhoneType, LoginThunkType, ResponseUserLogin } from './types';
 import { http } from '../../services/http';
 
 const sliceName = 'authSlice';

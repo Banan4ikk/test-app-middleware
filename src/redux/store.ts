@@ -1,16 +1,31 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authSlice from './auth/slice';
-import { useDispatch } from 'react-redux';
-import { authMiddleware } from './middlewares/authMiddlware';
 import errorSlice from './errorSlice/errorSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import userSlice from './userSlice/userSlice';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { authMiddleware } from './middlewares/authMiddlware';
+import { persistReducer, persistStore } from 'redux-persist';
+
+const rootReducer = combineReducers({
+  auth: authSlice.reducer,
+  error: errorSlice.reducer,
+  user: userSlice.reducer,
+});
+
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    auth: authSlice.reducer,
-    error: errorSlice.reducer,
-  },
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware => {
-    return getDefaultMiddleware().concat(authMiddleware);
+    return getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(authMiddleware);
   },
 });
 
@@ -23,3 +38,5 @@ export type DefaultThunkResponse = {
 };
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<rootState> = useSelector;
+export const persistor = persistStore(store);
