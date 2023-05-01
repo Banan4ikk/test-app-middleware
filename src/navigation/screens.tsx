@@ -1,8 +1,8 @@
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
-import RegisterScreen from '../screens/NoAuthScreens/RegisterStartScreen';
 import { ScreenParams, ScreenWithProps } from './ScreenParams';
-import RegisterUserScreen from '../screens/NoAuthScreens/RegisterUserScreen';
 import RegistrationCodeScreen from '../screens/NoAuthScreens/ConfirmCodeScreen';
+import PhoneScreen from 'src/screens/NoAuthScreens/PhoneScreen';
+import UserInfoScreen from '../screens/AuthScreens/UserInfoScreen';
 
 type ScreenType = {
   component: ScreenWithProps<keyof ScreenParams>;
@@ -12,24 +12,21 @@ type ScreenType = {
 type ScreenListElements = Record<string, ScreenType>;
 
 export const noAuthScreens: ScreenListElements = {
-  RegisterScreen: {
-    component: RegisterScreen,
-  },
-  UserDataRegisterScreen: {
-    component: RegisterUserScreen,
-  },
   RegistrationCodeScreen: {
     component: RegistrationCodeScreen,
+  },
+  PhoneScreen: {
+    component: PhoneScreen,
   },
 };
 
 export const authScreens: ScreenListElements = {
-  authScreen: {
-    component: <></>,
+  UserScreen: {
+    component: UserInfoScreen,
   },
 };
 
-export const InitialScreenNoAuth = noAuthScreens.RegisterScreen;
-export const InitialScreenAuth = authScreens.authScreen;
+export const InitialScreenNoAuth = noAuthScreens.PhoneScreen.component.name;
+export const InitialScreenAuth = authScreens.UserScreen.component.name;
 
 export const StackNavigator = createStackNavigator();

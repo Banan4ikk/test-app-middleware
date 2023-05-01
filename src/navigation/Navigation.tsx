@@ -6,26 +6,25 @@ import { useSelector } from 'react-redux';
 
 const AppNavigation = () => {
   const Navigator = StackNavigator;
+
   const noAuth = noAuthScreens;
   const noAuthScreensNames = Object.keys(noAuth);
-  const noAuthInitialScreen = Object.keys(InitialScreenNoAuth)[0];
 
   const withAuth = authScreens;
   const withAuthScreenNames = Object.keys(withAuth);
-  const initialScreenWithAuth = Object.keys(InitialScreenAuth)[0];
 
   const isToken = useSelector(selectToken);
 
   return (
     <NavigationContainer>
       {isToken ? (
-        <Navigator.Navigator initialRouteName={initialScreenWithAuth}>
+        <Navigator.Navigator initialRouteName={InitialScreenAuth}>
           {withAuthScreenNames.map(screen => (
             <Navigator.Screen name={screen} key={screen} options={{ headerShown: false }} {...withAuth[screen]} />
           ))}
         </Navigator.Navigator>
       ) : (
-        <Navigator.Navigator initialRouteName={noAuthInitialScreen}>
+        <Navigator.Navigator initialRouteName={InitialScreenNoAuth}>
           {noAuthScreensNames.map(screen => (
             <Navigator.Screen name={screen} key={screen} options={{ headerShown: false }} {...noAuth[screen]} />
           ))}

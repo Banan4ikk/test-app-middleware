@@ -7,7 +7,7 @@ export class Http {
   }
 
   setAuthorizationHeader(token: string): void {
-    this._axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    localStorage.setItem('token', token);
   }
 
   unsetAuthorizationHeader(): void {

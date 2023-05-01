@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { ScreenWithProps } from '../../../navigation/ScreenParams';
 import NavigationHeader from '../../../components/NavigationHeader';
-import { Container } from '../../../styles/global';
 import ContainerWithLogo from '../../../components/ContainerWithLogo';
 import { BlueText, CellStyled, CellText, CodeContainer, StyledContainer, TitleText } from './styles';
 import { CodeField } from 'react-native-confirmation-code-field';
 import SimpleButton from '../../../components/buttons/SimpleButton';
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import authSlice, { authenticationSlice } from '../../../redux/auth/slice';
 import { useAppDispatch } from '../../../redux/store';
+import { SafeAreaView } from 'react-native';
+import { Container } from '../../../styles/global';
+import { authenticationSlice } from '../../../redux/auth/slice';
 
 type FormValues = {
   code: string;
 };
 
 const RegistrationCodeScreen: ScreenWithProps<'RegistrationCodeScreen'> = ({ navigation, route }) => {
-  const { mode, phoneNumber } = route.params;
+  const { phoneNumber } = route.params;
+
   const dispatch = useAppDispatch();
 
   const { control, handleSubmit } = useForm<FormValues>({
@@ -26,20 +27,12 @@ const RegistrationCodeScreen: ScreenWithProps<'RegistrationCodeScreen'> = ({ nav
   });
 
   const onSave = ({ code }: FormValues) => {
-    if (mode === 'enter' && phoneNumber) {
-      dispatch(authenticationSlice.login({ code, credentials: phoneNumber }));
-    }
-    dispatch(authSlice.actions.setConfirmCode(code));
+    dispatch(authenticationSlice.login({ code, credential: phoneNumber }));
   };
 
   return (
-    <StyledContainer>
-      <NavigationHeader
-        navigation={navigation}
-        allowGoBack
-        withCrossIcon
-        title={mode === 'register' ? 'Регистрация' : 'Вход'}
-      />
+    <Container>
+      <NavigationHeader navigation={navigation} allowGoBack withCrossIcon title="Вход" />
       <ContainerWithLogo>
         <TitleText>Введите код авторизации</TitleText>
         <CodeContainer>
@@ -66,7 +59,7 @@ const RegistrationCodeScreen: ScreenWithProps<'RegistrationCodeScreen'> = ({ nav
         <BlueText>Запросить код авторизации</BlueText>
         <SimpleButton title="Продолжить" onPress={handleSubmit(onSave)} style={{ marginTop: 16 }} />
       </ContainerWithLogo>
-    </StyledContainer>
+    </Container>
   );
 };
 

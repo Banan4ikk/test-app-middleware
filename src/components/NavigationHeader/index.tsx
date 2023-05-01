@@ -14,14 +14,12 @@ type HeaderProps = {
 };
 
 const NavigationHeader: FC<HeaderProps> = ({ withCrossIcon, title, navigation, allowGoBack }) => {
-  const insets = useSafeAreaInsets();
-
   const goBack = () => {
     navigation.goBack();
   };
 
   return (
-    <HeaderContainer style={{ marginTop: insets.top + 10 }}>
+    <HeaderContainer>
       {withCrossIcon && (
         <Pressable disabled={!allowGoBack} onPress={goBack}>
           <CrossIcon style={{ marginRight: 15 }} />

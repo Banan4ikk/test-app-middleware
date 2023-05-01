@@ -1,8 +1,15 @@
-export type UserRegistrationInfo = {
-  name: string;
-  lastname: string;
-  middleName: string;
-  phoneNumber: string;
-  email: string;
-  inn: string;
+import { DefaultThunkResponse } from '../store';
+
+export type LoginThunkType = {
+  credential: string;
+  code: string;
+};
+
+export type ConfirmPhoneType = {
+  phone: string;
+};
+
+export type ResponseUserLogin = DefaultThunkResponse & {
+  accessToken: string;
+  refreshToken: string;
 };

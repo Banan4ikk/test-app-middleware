@@ -3,9 +3,8 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { FC } from 'react';
 
 export interface ScreenParams extends ParamListBase {
-  RegisterScreen: undefined;
-  RegisterUserScreen: { mode: 'register' | 'enter' };
-  RegistrationCodeScreen: { mode: 'register' | 'enter'; phoneNumber?: string };
+  RegistrationCodeScreen: { phoneNumber: string };
+  PhoneScreen: undefined;
   authScreen: undefined;
 }
 

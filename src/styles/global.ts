@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { mainBackgroundColor } from './colors';
 import { StyleSheet } from 'react-native';
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${mainBackgroundColor};
 `;
