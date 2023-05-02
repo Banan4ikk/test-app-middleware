@@ -1,11 +1,12 @@
-import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { Profiler, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAppFonts } from './src/hooks/useAppFonts';
 import AppNavigation from './src/navigation/Navigation';
 import { Provider } from 'react-redux';
 import { persistor, store } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import messaging from '@react-native-firebase/messaging';
 
 const styles = StyleSheet.create({
   root: {
@@ -23,6 +24,17 @@ const Root = () => {
       setAppIsReady(true);
     }
   }, [fontsLoaded]);
+
+  const pushNotifications = async () => {
+    const token = await messaging().getToken();
+    if (token) {
+      console.log('token', token);
+    }
+  };
+
+  useEffect(() => {
+    pushNotifications();
+  }, []);
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
