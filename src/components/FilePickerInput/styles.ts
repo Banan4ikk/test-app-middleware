@@ -13,7 +13,7 @@ export const FileContainer = styled.Pressable`
   flex-direction: row;
   align-items: center;
   padding: 14px 10px 14px 16px;
-  border-radius: 8px;
+  //border-radius: 8px;
 `;
 
 export const SelectFileText = styled.Text`
@@ -24,7 +24,7 @@ export const SelectFileText = styled.Text`
 
 export const FileView = styled.View`
   padding: 6px 12px 6px 12px;
-  border-radius: 18px;
+  //border-radius: 18px;
   background-color: #e9f0fe;
   margin-top: 10px;
   align-self: flex-start;

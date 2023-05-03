@@ -5,7 +5,7 @@ export const StyledTextInput = styled.TextInput<{ borderColor: string; bgColor?:
   width: 100%;
   border: 1px solid ${({ borderColor }) => borderColor};
   background-color: ${({ bgColor }) => bgColor || mainColor};
-  border-radius: 8px;
+  //border-radius: 8px;
   padding: 14px 10px 14px 16px;
 `;
 

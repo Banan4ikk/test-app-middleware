@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ConfirmPhoneType, LoginThunkType, ResponseUserLogin } from './types';
 import { http } from '../../services/http';
 
@@ -8,12 +8,14 @@ type InitialStateType = {
   token: string;
   refreshToken: string;
   confirmCode: string;
+  pushToken: string | null;
 };
 
-const initialState = {
+const initialState: InitialStateType = {
   token: '',
   refreshToken: '',
   confirmCode: '',
+  pushToken: null,
 };
 
 const login = createAsyncThunk<ResponseUserLogin, LoginThunkType>(
@@ -32,7 +34,11 @@ const confirmCode = createAsyncThunk<void, ConfirmPhoneType>(`${sliceName}/confi
 const authSlice = createSlice({
   name: sliceName,
   initialState,
-  reducers: {},
+  reducers: {
+    setPushToken: (state, { payload }: PayloadAction<{ pushToken: string }>) => {
+      state.pushToken = payload.pushToken;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(login.fulfilled, (state, { payload }) => {
       console.log('payload', payload);

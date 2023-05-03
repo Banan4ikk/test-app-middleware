@@ -10,7 +10,7 @@ export const ButtonStyled = styled.TouchableHighlight<Props>`
   padding-top: 15px;
   padding-bottom: 15px;
   border: 2px solid ${props => props.color || mainColor};
-  border-radius: 12px;
+  //border-radius: 12px;
   justify-content: center;
   align-items: center;
 `;

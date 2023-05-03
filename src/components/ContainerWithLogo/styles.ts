@@ -5,7 +5,7 @@ import { ImageContainer } from '../../styles/global';
 export const WhiteContainer = styled.View`
   background-color: ${mainColor};
   height: 100%;
-  border-radius: 16px 16px 0 0;
+  //border-radius: 16px 16px 0 0;
   margin-top: 15px;
   padding: 25px 15px 0 15px;
   z-index: 1000;

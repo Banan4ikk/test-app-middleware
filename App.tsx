@@ -4,9 +4,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useAppFonts } from './src/hooks/useAppFonts';
 import AppNavigation from './src/navigation/Navigation';
 import { Provider } from 'react-redux';
-import { persistor, store } from './src/redux/store';
+import { persistor, store, useAppDispatch } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import messaging, { firebase } from '@react-native-firebase/messaging';
+import authSlice from './src/redux/auth/slice';
 
 const styles = StyleSheet.create({
   root: {
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
 const Root = () => {
   const [appIsReady, setAppIsReady] = useState(false);
   const { fontsLoaded } = useAppFonts();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (fontsLoaded) {
       setAppIsReady(true);
@@ -48,13 +50,14 @@ const Root = () => {
 
   // Select the relevant credentials
   const credentials = Platform.OS === 'ios' ? iosCredentials : androidCredentials;
-  const config = {
-    name: 'SECONDARY_APP',
-  };
 
   const initApp = useCallback(async () => {
-    await firebase.initializeApp(credentials);
-  }, [credentials]);
+    if (!firebase.apps.length) {
+      await firebase.initializeApp(credentials);
+    } else {
+      return firebase.app();
+    }
+  }, []);
 
   const pushNotifications = async () => {
     const authStatus = await messaging().requestPermission();
@@ -65,14 +68,15 @@ const Root = () => {
       await messaging().registerDeviceForRemoteMessages();
       const token = await messaging().getToken();
       if (token) {
+        dispatch(authSlice.actions.setPushToken({ pushToken: token }));
         console.log('token', token);
       }
     }
   };
 
   useEffect(() => {
-    initApp();
-    pushNotifications();
+    initApp().then(Promise.resolve);
+    pushNotifications().then(Promise.resolve);
     const unsubscribe = messaging().onMessage(async remoteMessage => {
       console.log('FCM message arrived 101!', JSON.stringify(remoteMessage));
     });

@@ -11,7 +11,7 @@ export const CheckBoxContainer = styled.View`
 export const ActiveCheckBox = styled.View`
   width: 20px;
   height: 20px;
-  border-radius: 4px;
+  //border-radius: 4px;
   background-color: ${greenSuccess};
   display: flex;
   justify-content: center;
