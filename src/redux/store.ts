@@ -40,3 +40,8 @@ export type DefaultThunkResponse = {
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<rootState> = useSelector;
 export const persistor = persistStore(store);
+
+export interface AsyncAppThunkConfig {
+  state: rootState;
+  dispatch: AppDispatch;
+}

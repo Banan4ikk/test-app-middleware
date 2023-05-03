@@ -10,6 +10,7 @@ import { selectToken } from '../../../redux/auth/selectors';
 import { selectError } from '../../../redux/errorSlice/selectors';
 import styled from 'styled-components/native';
 import { selectUserInfo } from '../../../redux/userSlice/selectors';
+import { authenticationSlice } from '../../../redux/auth/slice';
 
 const UserInfoScreen: ScreenWithProps<'UserScreen'> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,10 @@ const UserInfoScreen: ScreenWithProps<'UserScreen'> = ({ navigation, route }) =>
 
   const onClickCheck = () => {
     dispatch(user.fetchUserInfo({ accessToken: '' }));
+  };
+
+  const onLogout = () => {
+    dispatch(authenticationSlice.logout());
   };
 
   const isConfirmed = (isConfirmed: boolean | undefined) => {
@@ -40,6 +45,9 @@ const UserInfoScreen: ScreenWithProps<'UserScreen'> = ({ navigation, route }) =>
       </Button>
       <Button onPress={onClickCheck}>
         <Text>Кнопка для поверки</Text>
+      </Button>
+      <Button onPress={onLogout}>
+        <Text>Выход</Text>
       </Button>
       <UserContainer>
         {errorMessage ? (

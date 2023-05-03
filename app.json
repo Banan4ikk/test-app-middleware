@@ -1,14 +1,5 @@
 {
   "expo": {
-    "plugins": [
-      [
-        "with-rn-firebase",
-        {
-          "androidGoogleServicesPath": "./google-services.json",
-          "iosGoogleServicesPath": "./GoogleServices-Info.plist"
-        }
-      ]
-    ],
     "name": "test-app",
     "slug": "test-app",
     "version": "1.0.0",

@@ -1,16 +1,28 @@
-import { AnyAction, Dispatch } from 'redux';
+import { AnyAction, Dispatch, Middleware } from 'redux';
 import errorSlice from '../errorSlice/errorSlice';
+import authSlice from '../auth/slice';
+
+import { DecodeJWTType } from '../auth/types';
+// import { decodeToken } from 'react-jwt';
+import jwt_decode from 'jwt-decode';
 
 export const authMiddleware =
   () =>
-  (dispatch: Dispatch) =>
+  (next: Dispatch) =>
   (action: AnyAction): AnyAction => {
-    dispatch(errorSlice.actions.clearError());
+    next(errorSlice.actions.clearError());
     if (action.type.includes('fulfilled')) {
       if (!action.payload.ok) {
-        return dispatch(errorSlice.actions.setError({ message: action.payload.msg, code: action.payload.code }));
+        return next(errorSlice.actions.setError({ message: action.payload.msg, code: action.payload.code }));
       }
     }
+    if (action.type.includes('logout')) {
+      next(authSlice.actions.logout());
+    }
+    if (action.payload?.accessToken) {
+      const decode = jwt_decode<DecodeJWTType>(action.payload.accessToken);
+      next(authSlice.actions.setUserInfo({ uid: decode.sub, roles: decode.roles }));
+    }
 
-    return dispatch(action);
+    return next(action);
   };
