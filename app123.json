@@ -1,14 +1,5 @@
 {
   "expo": {
-    "plugins": [
-      [
-        "with-rn-firebase",
-        {
-          "androidGoogleServicesPath": "./google-services.json",
-          "iosGoogleServicesPath": "./GoogleServices-Info.plist"
-        }
-      ]
-    ],
     "name": "test-app",
     "slug": "test-app",
     "version": "1.0.0",
@@ -24,9 +15,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.banan4ik.test-app"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

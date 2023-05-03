@@ -1,9 +1,3 @@
-import './whatChange';
-import 'intl';
-import 'intl/locale-data/jsonp/ru';
-import 'react-native-get-random-values';
-import 'expo-dev-client';
-
 import { registerRootComponent } from 'expo';
 
 import App from './App';

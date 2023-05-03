@@ -1,11 +1,10 @@
 {
   "name": "test-app",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
@@ -18,15 +17,15 @@
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
-    "expo": "~48.0.5",
+    "expo": "~48.0.15",
     "expo-font": "^11.1.1",
-    "expo-splash-screen": "^0.18.1",
+    "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-hook-form": "^7.43.5",
     "react-merge-refs": "^1.1.0",
-    "react-native": "0.71.3",
+    "react-native": "0.71.7",
     "react-native-confirmation-code-field": "^7.3.1",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
@@ -39,6 +38,7 @@
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.8",
     "styled-components-react-native": "^1.0.0",
+    "with-rn-firebase": "^0.3.2",
     "yup": "^1.0.2"
   },
   "devDependencies": {
