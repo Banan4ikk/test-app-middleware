@@ -8,6 +8,7 @@ import { persistor, store, useAppDispatch } from './src/redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import messaging, { firebase } from '@react-native-firebase/messaging';
 import authSlice from './src/redux/auth/slice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   root: {
@@ -28,32 +29,21 @@ const Root = () => {
 
   // Your secondary Firebase project credentials for Android...
   const androidCredentials = {
-    clientId: '935766045267-nsa2je178nrv3dlvq49l5ebpb1ebr38l.apps.googleusercontent.com',
-    appId: '1:935766045267:android:d4b9cc3e9405739dde4ca6',
-    apiKey: 'AIzaSyCPCE3yd-2HzYjhALDYCzv0VWgK_CdDtWo',
+    clientId: '508700549373-038t2i7jb3efseafg0ap7nebnvaias46.apps.googleusercontent.com',
+    appId: '1:508700549373:android:df0dfa128b64abb90c9e94',
+    apiKey: '"AIzaSyB-xHXdllJ08fzZKhZBj7zLQ8Vg8dhVDKQ',
     databaseURL: '',
-    storageBucket: 'test-app-notifications-2adce.appspot.com',
+    storageBucket: 'webdevep-test.appspot.com',
     messagingSenderId: '935766045267',
-    projectId: 'test-app-notifications-2adce',
-  };
-
-  // Your secondary Firebase project credentials for iOS...
-  const iosCredentials = {
-    clientId: '935766045267-nsa2je178nrv3dlvq49l5ebpb1ebr38l.apps.googleusercontent.com',
-    appId: '1:935766045267:ios:f4ef34c6dcf485c6de4ca6',
-    apiKey: 'AIzaSyBYldn6HDMim5cSHvEEmHB1o9_hPyW9-GQ',
-    databaseURL: '',
-    storageBucket: 'test-app-notifications-2adce.appspot.com',
-    messagingSenderId: '935766045267',
-    projectId: 'test-app-notifications-2adce',
+    projectId: 'webdevep-test',
   };
 
   // Select the relevant credentials
-  const credentials = Platform.OS === 'ios' ? iosCredentials : androidCredentials;
+  // const credentials = Platform.OS === 'ios' ? iosCredentials : androidCredentials;
 
   const initApp = useCallback(async () => {
-    if (!firebase.apps.length) {
-      await firebase.initializeApp(credentials);
+    if (!firebase.apps.length && Platform.OS === 'android') {
+      await firebase.initializeApp(androidCredentials);
     } else {
       return firebase.app();
     }
